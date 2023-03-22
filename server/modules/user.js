@@ -4,24 +4,31 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema ({
     userName:{
         type: String,
-        required: true
+        // userName required later
     },
+
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true
+    },
+    password: {
+        type: String,
+        required: true,
+        minlenght: 8
+    },
+
     bio: String,
 
     projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'project'}],
-
-    Duration: String,
-    
-    xp: Number,
-
-    lvl: Number,
-
+  
     pfp: Image,
 
-    groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'groupe'}],
-
-    account:{type: mongoose.Schema.Types.ObjectId, ref: 'account'}
+    groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'groupe'}],  
     
 } , {timestamps: true});
 
-const project = mongoose.model('project', projectSchema);
+const User = mongoose.model('user', userSchema);
+
+module.exports = User;
