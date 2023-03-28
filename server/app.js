@@ -4,6 +4,8 @@ const app = express();
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+const {requireAuth, checkUser} = require('./middleware/authMiddleware');
 
 
 //connect to mongodb
@@ -33,6 +35,7 @@ app.get('/', (req , res) => {
 
 //routes
 app.use(authRoutes);
+app.get('*', checkUser);
 
 
 
