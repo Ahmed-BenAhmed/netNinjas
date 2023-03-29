@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
+const taskRoute = require('./routes/taskRoute');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const {requireAuth, checkUser} = require('./middleware/authMiddleware');
@@ -36,6 +37,8 @@ app.get('/', (req , res) => {
 //routes
 app.use(authRoutes);
 app.get('*', checkUser);
+app.use(taskRoute);
+
 
 
 
