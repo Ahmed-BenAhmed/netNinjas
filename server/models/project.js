@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const assignementSchema = require('./assignment')
+const {assignementSchema} = require('./assignment')
 
 const projectSchema = new Schema ({
 

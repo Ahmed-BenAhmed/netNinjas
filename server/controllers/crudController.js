@@ -1,9 +1,9 @@
-const createOne = async (model, req, res) => {
+const createOne =  (model) => async (req, res) => {
     try {
-        const model = model.create(req.body);
-        await model.save();
+        const newModel = await model.create(req.body);
+        await newModel.save();
         console.log('model created');
-        return res.status(201).json({model});
+        return res.status(201).json({newModel});
        
     }
     catch (err) {
@@ -12,11 +12,11 @@ const createOne = async (model, req, res) => {
     }
 }
 
-const getMany = async (model, req, res) => {
+const getMany = (model) => async (req, res) => {
     try {
-        const model = await model.find(req.body);
-        console.log(model);
-        return res.status(201).json({model});
+        const newModel = await model.find(req.body);
+        console.log(newModel);
+        return res.status(201).json({newModel});
        
     }
     catch (err) {
@@ -26,11 +26,11 @@ const getMany = async (model, req, res) => {
 } 
 
 
-const getOne = async (model, req, res) => {
+const getOne = (model) => async (req, res) => {
     try {
-        const model = await model.findById(req.body.id);
-        console.log(model);
-        return res.status(201).json({model});
+        const newModel = await model.findById(req.body.id);
+        console.log(newModel);
+        return res.status(201).json({newModel});
        
     }
     catch (err) {
@@ -39,12 +39,12 @@ const getOne = async (model, req, res) => {
     }
 } 
 
-const updateOne = async (model, req, res) => {
+const updateOne = (model) => async (req, res) => {
     try {
-        const model = model.findByIdAndUpdate(req.body.id,req.body )
-        await model.save();
+        const newModel =await model.findByIdAndUpdate(req.body.id,req.body )
+        await newModel.save();
         console.log('model updated');
-        return res.status(201).json({model});
+        return res.status(201).json({newModel});
        
     }
     catch (err) {
@@ -55,9 +55,10 @@ const updateOne = async (model, req, res) => {
 
 
 const crudController = (model) => {
-    createOne: createOne(model)
-    getMany: getMany(model)
-    getOne: getOne(model)
+    return {
+    createOne: createOne(model),
+    getMany: getMany(model),
+    getOne: getOne(model),
     updateOne: updateOne(model)
-}
+} }
 module.exports = crudController
