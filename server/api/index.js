@@ -1,32 +1,47 @@
-import express from "express"
-import mongoose from "mongoose"
-import cors from "cors"
-import keys from "../config/keys.js"
+require('dotenv').config();
+const express = require('express');
 const app = express();
-
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: false}))
-
-main().then(() => {
-      console.log("DB connected");
-      const PORT = process.env.PORT || 5001
-      app.listen(PORT, async () => {
-        console.log("Server strated at port " + PORT)
-      })
-    }
-).catch(err => console.log(err));
-
-async function main() {
-  await mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-}
+const mongoose = require('mongoose');
+const authRoutes = require('../routes/authRoutes');
+const taskRoute = require('../routes/taskRoute');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+const {requireAuth, checkUser} = require('../middleware/authMiddleware');
 
 
-app.get("/api", (req, res) => {
+//connect to mongodb
+mongoose.connect(process.env.dbURI, { useNewUrlParser: true , useUnifiedTopology: true})
+   .then((result) => 
+   // listen to req
+    app.listen(process.env.PORT, () => {
+    console.log('listening on port', process.env.PORT)
+}))
+   .catch((err) => console.log(err));
 
-  res.json({
-    "message": ['Hello World!'],
-  });
 
+app.use((req, res, next ) => {
+   console.log(req.path, req.method)
+   next()
+});
+
+//middleware
+app.use(express.json());
+app.use(cookieParser());
+
+//this is a test , I will add routs later
+
+app.get('/', (req , res) => {
+    res.json({mssg: 'this is a test'})
 })
+
+//routes
+app.use(authRoutes);
+app.get('*', checkUser);
+app.use(taskRoute);
+
+
+
+
+
+
 
