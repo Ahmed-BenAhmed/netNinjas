@@ -13,13 +13,13 @@ const assignementSchema = new Schema ({
 
     status: {
         type: String, 
-        enum: ['Completed', 'Active', 'Archived', 'OnHold', 'NotStarted', 'Cancelled','Deleted'],
+        enum: ['Completed', 'Active', 'Archived', 'On Hold', 'Not Started', 'Cancelled','Deleted'],
         default: 'Active'
     }, 
     priority: {
         type: String,
-        enum: ['low', 'moderate', 'high', 'critical'],
-        default: 'moderate'
+        enum: ['Low', "Medium", 'High', 'Critical'],
+        default: "Medium"
     },
     
 } , {timestamps: true});

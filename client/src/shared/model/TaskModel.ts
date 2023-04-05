@@ -7,7 +7,8 @@ export enum TaskStatusEnum {
     ARCHIVED = "Archived",
     ON_HOLD = "On Hold",
     NOT_STARTED = "Not Started",
-    CANCELLED = "Cancelled"
+    CANCELLED = "Cancelled",
+    DELETED = "Deleted"
 }
 
 export type Task = {
