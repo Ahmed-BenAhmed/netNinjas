@@ -1,3 +1,4 @@
+import { Group } from "./GroupModel";
 import {PriorityEnum} from "./ProjectModel";
 
 
@@ -18,7 +19,9 @@ export type Task = {
     createdAt: Date,
     doDate: Date,
     dueDate: Date,
-    priority: PriorityEnum
+    priority: PriorityEnum,
+    group: Group,
+    duration: string
 }
 
 

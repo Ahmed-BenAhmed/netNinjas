@@ -2,9 +2,27 @@ import React from "react";
 import { Task } from "../../../shared/model/TaskModel";
 
 
-export const DetailTaskPureComponent = () => {
+interface Props {
+    task: Task
+}
+
+export const DetailTaskPureComponent = ({task}:Props)  => {
 
     return <div>
-        <h1>Hello Programmer, I hope you finish your task in the minimum time possible</h1>
+        <div>
+            <p>
+                <span>{task.group ? task.group.groupName : "Personal"}</span>
+                <span>|</span>
+                <span>{task.duration}</span>
+            </p>
+    
+        </div>
+        <div>
+            <input type={"checkbox"} name={"task-checked"} />
+            <h1>{task.title}</h1>
+        </div>
+        <div className="">
+            <p>{task.description}</p>
+        </div>
     </div>
 }
