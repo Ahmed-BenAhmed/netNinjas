@@ -3,3 +3,143 @@
 @tailwind utilities;
 
 
+/* Button */
+
+.primary-button-container {
+    padding:30px;
+    font-family:poppins;
+
+}
+.primary-button {
+    text-decoration:none;
+    color:white;
+    border-radius:10px;
+    background-color:rgb(97, 0, 97);
+
+
+}
+.box-shadow{
+    box-sizing: border-box;
+    border:none;
+    border-radius:10px;
+    padding:10px 20px 10px 20px ;
+    -webkit-box-shadow:0px 5px 0px 0px #a7a4a4 ;
+}
+
+
+/* Label */
+
+
+.label-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    flex-direction:column;
+    gap:20px;
+}
+.label-container input{
+    width:400px;
+    height:30px;
+}
+.go{
+    border:1px solid rgb(172, 171, 171);
+    width:410px;
+    height:39px;
+    background-color:rgb(41, 168, 41);
+
+}
+p{
+    padding-left:160px;
+    color:white;
+}
+
+
+
+h6{
+    color:rgb(126, 118, 118);
+    letter-spacing:1px;
+}
+.color{
+    color:red;
+}
+
+/* Menu Navbar*/
+
+
+.header{
+    height:80px;
+    margin:10px;
+
+}
+nav ul li{
+    list-style-type:none;
+    display:inline-block;
+    padding:10px;
+}
+ul li a{
+    color:black;
+    letter-spacing:0.1rem;
+}
+ul li a:hover{
+    color:purple;
+    text-decoration: underline;
+}
+.menu{
+    float:left;
+    padding:35px;
+}
+.menu li a {
+    text-decoration:none;
+}
+.pfp{
+    padding:3px;
+    border:2px black;
+}
+.logo{
+    border:2px black ;
+}
+.header{
+    padding-left:40px;
+}
+.image{
+    padding-left:180px;
+}
+.logo{
+    padding-left:50px;
+}
+h6{
+    color:gray;
+}
+
+
+/* Search Input */
+
+.search{
+    display:flex;
+    align-items:center;
+
+}
+.search input{
+    width:300px;
+    border:2px solid black;
+    padding:10px;
+    border-radius:30px
+
+}
+a{
+    position: absolute;
+    margin-left:270px;
+}
+
+/* Style Select */
+
+
+.radius{
+    width:120px;
+    padding: 10px 20px 10px 20px ;
+    font: 100 15px Arial;
+    border-radius:40px ;
+    border: 1px solid black;
+    -webkit-appearance:none;
+}

@@ -1,4 +1,5 @@
 import { Task } from "./TaskModel"
+import {Group} from "./GroupModel";
 
 export enum ProjectStatusEnum {
     COMPLETED = "Completed",
@@ -20,8 +21,10 @@ export type Project = {
     duration: number,
     xpEarned: number,
     xpTotal: number,
+    progress: number,
     createdDate: Date,
     Status: ProjectStatusEnum,
     tasks: [Task],
-    priority: PriorityEnum
+    priority: PriorityEnum,
+    group?: Group
 }
