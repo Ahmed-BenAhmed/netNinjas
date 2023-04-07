@@ -5,7 +5,10 @@ const {assignementSchema} = require('./assignment')
 const projectSchema = new Schema ({
 
     assignement: assignementSchema,
-
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
     completedTasks: {
         type: Number,
         dafault: 0

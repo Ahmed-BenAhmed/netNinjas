@@ -1,9 +1,5 @@
-import axios, {AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse} from "axios"
+import axios, {AxiosError, AxiosRequestConfig} from "axios"
 import {useEffect, useState} from "react";
-import {Task} from "../model/TaskModel";
-import {useParams} from "react-router-dom";
-import {AxiosInstance} from "../AxiosInstance";
-import {setEnvironmentData} from "worker_threads";
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
@@ -12,19 +8,22 @@ export function useAxios<Type>(axiosParams: AxiosRequestConfig){
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<AxiosError>()
 
-    const fetchData = (axiosParams: AxiosRequestConfig) => {
+    const fetchData = (axiosParams: AxiosRequestConfig):Type|undefined => {
         setIsLoading(true)
         axios.request<Type>(axiosParams).then((res:any)=>{
             setData(res.data)
+            setIsLoading(false)
+            return res.data
         }).catch((err:any) => {
             setError(err.message)
         }).finally(()=>{
             setIsLoading(false)
         })
+        return data
     }
 
-    const sendData = (data:any) => {
-        fetchData({...axiosParams, data: data})
+    const sendData = (data:any):Type|undefined  => {
+        return fetchData({...axiosParams, data: data})
     }
     useEffect(() =>{
         if(axiosParams.method === "GET" || axiosParams.method === "get"){

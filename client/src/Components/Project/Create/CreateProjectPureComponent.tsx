@@ -1,23 +1,24 @@
-import React, {FormEventHandler, useState} from "react";
+import React, {useState} from "react";
 import {useAxios} from "../../../shared/customHooks/UseAxios";
-import {useForm} from "react-hook-form";
 import {CreateProjectFormValues} from "../../../shared/model/FormTypes";
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import {Button} from "reactstrap";
 import {CreateProjectModal} from "./CreateProjectModal";
-
-
+import {useStore} from "../../../shared/customHooks/useStore";
+import {Project} from "../../../shared/model/ProjectModel";
+import axios from "axios";
 
 
 export const CreateProjectPureComponent = () => {
     const [modal, setModal] = useState<boolean>(false)
-    const {sendData} = useAxios({
+    const setProjects = useStore((state)=> state.setProjects)
+    const projects = useStore((state)=> state.projects)
+    const {data, isLoading, error, sendData} = useAxios<Project>({
         method: "post",
         url: "/project"
     })
     const createProject = (data:CreateProjectFormValues) => {
-        console.log("project",data)
-        sendData({
-            assignement: data
+        axios.post<Project>("/project", {assignement: data}).then((res)=>{
+            setProjects([...projects, res.data])
         })
         toggle()
     }
