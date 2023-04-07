@@ -4,9 +4,6 @@ import axios from "axios"
 import { DetailGroupPureComponent } from "./DetailGroupPureComponent";
 import { Group } from "../../../shared/model/GroupModel";
 
-type GetGroupResponse = {
-    data: Group
-}
 
 export const DetailGroupComponent = () => {
 

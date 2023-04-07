@@ -3,31 +3,19 @@ import { useParams } from 'react-router-dom';
 import axios from "axios"
 import { DetailTaskPureComponent } from "./DetailTaskPureComponent";
 import { Task } from "../../../shared/model/TaskModel";
+import {useAxios} from "../../../shared/customHooks/UseAxios";
 
-type GetTaskResponse = {
-    data: Task
-}
 
 export const DetailTaskComponent = () => {
+    const {data:task, isLoading, error} = useAxios({
+        method: "get",
+        url: "/tasks"
+    })
 
-    const [task, setTask] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(undefined)
-
-    let { taskId } = useParams();
-
-    useEffect(() =>{
-        setIsLoading(true)
-        axios.get<GetTaskResponse>(`/task/${taskId}`).then((res)=>{
-            setTask(res.data)
-        }).catch(err => {
-            setError(err.message)
-        }).finally(()=>{
-            setIsLoading(false)
-        })
-    },[])
 
     if(isLoading) return <p>Loading ...</p>
-    if(error) return <p>{error}</p>
-    return <DetailTaskPureComponent task={task} />
+    if(task) {
+        return <DetailTaskPureComponent task={task}/>
+    }
+    return <p> Some Error Happened In fetching data {error ? error : ""}</p>
 }

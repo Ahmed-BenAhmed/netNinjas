@@ -3,7 +3,7 @@ const createOne =  (model) => async (req, res) => {
         const newModel = await model.create(req.body);
         await newModel.save();
         console.log('model created');
-        return res.status(201).json({newModel});
+        return res.status(201).json(newModel);
        
     }
     catch (err) {
@@ -14,9 +14,9 @@ const createOne =  (model) => async (req, res) => {
 
 const getMany = (model) => async (req, res) => {
     try {
-        const newModel = await model.find(req.body);
+        const newModel = await model.find(req.body ? req.body : {});
         console.log(newModel);
-        return res.status(201).json({newModel});
+        return res.status(201).json(newModel);
        
     }
     catch (err) {
@@ -30,7 +30,7 @@ const getOne = (model) => async (req, res) => {
     try {
         const newModel = await model.findById(req.body.id);
         console.log(newModel);
-        return res.status(201).json({newModel});
+        return res.status(201).json(newModel);
        
     }
     catch (err) {
@@ -44,7 +44,7 @@ const updateOne = (model) => async (req, res) => {
         const newModel =await model.findByIdAndUpdate(req.body.id,req.body )
         await newModel.save();
         console.log('model updated');
-        return res.status(201).json({newModel});
+        return res.status(201).json(newModel);
        
     }
     catch (err) {

@@ -1,26 +1,72 @@
 import React from "react";
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { DetailTaskPureComponent } from "./Components/Task/Detail/DetailTaskPureComponent";
 import moment from "moment"
+import {UserLayout} from "./Components/Layout/UserLayout";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {MainLayout} from "./Components/Layout/MainLayout";
+import {HomePage} from "./Pages/HomePage";
+import {ProjectsPage} from "./Pages/ProjectsPage";
+import {GroupsPage} from "./Pages/GroupsPage";
+import {WorkspacePage} from "./Pages/WorkspacePage";
+import {DetailProjectComponent} from "./Components/Project/Detail/DetailProjectComponent";
+import {DetailGroupComponent} from "./Components/Group/Detail/DetailGroupComponent";
 
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <MainLayout />,
+        children: [
+            {
+                path: "/",
+                element: <div>hello world</div>
+            }
+        ]
+    },
+    {
+        path: "/app",
+        element: <UserLayout />,
+        children: [
+            {
+                path: "/app/",
+                element: <HomePage />
+            },
+            {
+                path: "/app/projects",
+                children: [
+                    {
+                        path: "/app/projects/list",
+                        element: <ProjectsPage />
+                    },
+                    {
+                        path: `/app/projects/project/:projectId`,
+                        element: <DetailProjectComponent />
+                    },
+                ]
+            },
+            {
+                path: "/app/groups",
+                children: [
+                    {
+                        path: "/app/groups/list",
+                        element: <GroupsPage />
+                    },
+                    {
+                        path: `/app/groups/group/:groupId`,
+                        element: <DetailGroupComponent />
+                    }
+                ]
+            },
 
+            {
+                path: "/app/workspace",
+                element: <WorkspacePage />
+            }
+        ]
+    }
+])
 const App = () => {
-    const taskDuration = moment("20230410","YYYYMMDD").fromNow()
-    return (
-        <div>
-            hello world
-
-            <DetailTaskPureComponent task={{
-                title: "GO Home",
-                group: {
-                    groupName: "Net Ninjas"
-                },
-                duration: taskDuration,
-                description: "This is a group created to participate in CEC competion"
-            }}/>
-        </div>
-
-  );
+    return <RouterProvider router={router} />
 }
 
 export default App;

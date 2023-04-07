@@ -1,33 +1,31 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import { useParams } from "react-router-dom";
-import { DetailProjectPureComponent } from "./DetailProjectPureComponent";
-import { Project } from "../../../shared/model/ProjectModel";
+import React from "react";
+import {useParams} from "react-router-dom";
+import {useAxios} from "../../../shared/customHooks/UseAxios";
+import {CreateProjectPureComponent} from "../Create/CreateProjectPureComponent";
+import {CreateProjectFormValues} from "../../../shared/model/FormTypes";
+import {Project} from "../../../shared/model/ProjectModel";
+import {Button} from "reactstrap";
 
-type GetProjectResponse = {
-    data : Project
-}
 
 export const DetailProjectComponent = () => {
+    const {projectId} = useParams()
+    const {data:projects, isLoading, error} = useAxios<Project[]>({
+        method: "get",
+        url: "/projects"
+    })
 
-    const [project, setProject] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(undefined)
-
-    let { projectId } = useParams();
-
-    useEffect(() =>{
-        setIsLoading(true)
-        axios.get<GetprojectResponse>(`/project/${projectId}`).then((res)=>{
-            setProject(res.data)
-        }).catch(err => {
-            setError(err.message)
-        }).finally(()=>{
-            setIsLoading(false)
-        })
-    },[])
-
-    if(isLoading) return <p>Loading ...</p>
-    if(error) return <p>{error}</p>
-    return <DetailTaskPureComponent task={task} />
+    if(isLoading){
+        return <h1>Loaddinng</h1>
+    }
+    if(error){
+        return <h1>{error.message}</h1>
+    }
+    console.log("project",projects)
+    return <div>
+        <h1>Hello Programmer, I hope you finish your task in the minimum time possible</h1>
+        <h2>All Projects </h2>
+        {projects?.map(project => <p key={project._id}>
+            {project.assignement.title}
+        </p>)}
+    </div>
 }
