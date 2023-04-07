@@ -22,6 +22,7 @@ export type Task = {
     priority: PriorityEnum,
     group: Group,
     duration: string
+    _id: string
 }
 
 

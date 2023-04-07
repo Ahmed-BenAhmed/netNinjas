@@ -1,5 +1,6 @@
 import React from "react";
 import { Task } from "../../../shared/model/TaskModel";
+import axios from "axios";
 
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export const DetailTaskPureComponent = ({task}:Props)  => {
-
+    axios.get("http://localhost:5001/tasks")
     return <div>
         <div>
             <p>

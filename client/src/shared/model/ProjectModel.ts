@@ -17,14 +17,8 @@ export enum PriorityEnum {
     CRITICAL = "Critical"
 }
 export type Project = {
-    name: string,
-    duration: number,
-    xpEarned: number,
-    xpTotal: number,
-    progress: number,
-    createdDate: Date,
-    Status: ProjectStatusEnum,
-    tasks: [Task],
-    priority: PriorityEnum,
-    group?: Group
+    assignement: Task
+    completedTasks: number
+    numberOfTask: number
+    _id: string
 }

@@ -7,12 +7,12 @@ const projectSchema = new Schema ({
     assignement: assignementSchema,
 
     completedTasks: {
-        type: number,
+        type: Number,
         dafault: 0
     },
 
     numberOfTask: {
-        type: number, 
+        type: Number,
         default: 0
     },
 

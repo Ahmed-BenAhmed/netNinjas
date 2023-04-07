@@ -49,67 +49,19 @@
     background-color:rgb(41, 168, 41);
 
 }
-p{
+.label-container p{
     padding-left:160px;
     color:white;
 }
 
 
 
-h6{
+.label-container h6{
     color:rgb(126, 118, 118);
     letter-spacing:1px;
 }
 .color{
     color:red;
-}
-
-/* Menu Navbar*/
-
-
-.header{
-    height:80px;
-    margin:10px;
-
-}
-nav ul li{
-    list-style-type:none;
-    display:inline-block;
-    padding:10px;
-}
-ul li a{
-    color:black;
-    letter-spacing:0.1rem;
-}
-ul li a:hover{
-    color:purple;
-    text-decoration: underline;
-}
-.menu{
-    float:left;
-    padding:35px;
-}
-.menu li a {
-    text-decoration:none;
-}
-.pfp{
-    padding:3px;
-    border:2px black;
-}
-.logo{
-    border:2px black ;
-}
-.header{
-    padding-left:40px;
-}
-.image{
-    padding-left:180px;
-}
-.logo{
-    padding-left:50px;
-}
-h6{
-    color:gray;
 }
 
 
@@ -120,7 +72,7 @@ h6{
     align-items:center;
 
 }
-.search input{
+ input{
     width:300px;
     border:2px solid black;
     padding:10px;
