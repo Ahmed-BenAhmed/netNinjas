@@ -12,9 +12,9 @@ const createOne =  (model) => async (req, res) => {
     }
 }
 
-const getMany = (model) => async (req, res) => {
+const getMany = (model,populate) => async (req, res) => {
     try {
-        const newModel = await model.find(req.body ? req.body : {});
+        const newModel = await model.find(req.body ? req.body : {}).populate(populate);
         console.log(newModel);
         return res.status(201).json(newModel);
        
@@ -26,9 +26,9 @@ const getMany = (model) => async (req, res) => {
 } 
 
 
-const getOne = (model) => async (req, res) => {
+const getOne = (model,populate) => async (req, res) => {
     try {
-        const newModel = await model.findById(req.body.id);
+        const newModel = await model.findById(req.body.id).populate(populate);
         console.log(newModel);
         return res.status(201).json(newModel);
        
@@ -39,9 +39,9 @@ const getOne = (model) => async (req, res) => {
     }
 } 
 
-const updateOne = (model) => async (req, res) => {
+const updateOne = (model,populate) => async (req, res) => {
     try {
-        const newModel =await model.findByIdAndUpdate(req.body.id,req.body )
+        const newModel =await model.findByIdAndUpdate(req.body.id,req.body).populate(populate)
         await newModel.save();
         console.log('model updated');
         return res.status(201).json(newModel);
@@ -54,11 +54,11 @@ const updateOne = (model) => async (req, res) => {
 }
 
 
-const crudController = (model) => {
+const crudController = (model,populate={}) => {
     return {
     createOne: createOne(model),
-    getMany: getMany(model),
-    getOne: getOne(model),
-    updateOne: updateOne(model)
+    getMany: getMany(model,populate),
+    getOne: getOne(model,populate),
+    updateOne: updateOne(model,populate)
 } }
 module.exports = crudController

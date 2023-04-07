@@ -1,5 +1,4 @@
-import { Task } from "./TaskModel"
-import {Group} from "./GroupModel";
+import {Task} from "./TaskModel"
 
 export enum ProjectStatusEnum {
     COMPLETED = "Completed",
@@ -17,8 +16,9 @@ export enum PriorityEnum {
     CRITICAL = "Critical"
 }
 export type Project = {
+    _id: string
     assignement: Task
     completedTasks: number
     numberOfTask: number
-    _id: string
+    tasks: Task[]
 }

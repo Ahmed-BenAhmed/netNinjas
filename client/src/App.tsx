@@ -1,12 +1,10 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { DetailTaskPureComponent } from "./Components/Task/Detail/DetailTaskPureComponent";
-import moment from "moment"
 import {UserLayout} from "./Components/Layout/UserLayout";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {MainLayout} from "./Components/Layout/MainLayout";
 import {HomePage} from "./Pages/HomePage";
-import {ProjectsPage} from "./Pages/ProjectsPage";
+import {ProjectsListComponents} from "./Components/Project/List/ProjectsListComponents";
 import {GroupsPage} from "./Pages/GroupsPage";
 import {WorkspacePage} from "./Pages/WorkspacePage";
 import {DetailProjectComponent} from "./Components/Project/Detail/DetailProjectComponent";
@@ -36,7 +34,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: "/app/projects/list",
-                        element: <ProjectsPage />
+                        element: <ProjectsListComponents />
                     },
                     {
                         path: `/app/projects/project/:projectId`,
