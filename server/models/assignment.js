@@ -10,6 +10,7 @@ const assignementSchema = new Schema ({
     description: String,
 
     doDate: Date,
+    dueDate: Date,
 
     status: {
         type: String, 

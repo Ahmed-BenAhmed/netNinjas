@@ -1,5 +1,6 @@
 const createOne =  (model) => async (req, res) => {
     try {
+        console.log("to be created",req.body)
         const newModel = await model.create(req.body);
         await newModel.save();
         console.log('model created');

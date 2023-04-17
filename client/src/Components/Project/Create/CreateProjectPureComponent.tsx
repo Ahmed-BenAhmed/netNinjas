@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import {useAxios} from "../../../shared/customHooks/UseAxios";
+import React from "react";
 import {CreateProjectFormValues} from "../../../shared/model/FormTypes";
 import {Button} from "reactstrap";
 import {CreateProjectModal} from "./CreateProjectModal";
@@ -9,21 +8,14 @@ import axios from "axios";
 
 
 export const CreateProjectPureComponent = () => {
-    const [modal, setModal] = useState<boolean>(false)
-    const setProjects = useStore((state)=> state.setProjects)
-    const projects = useStore((state)=> state.projects)
-    const {data, isLoading, error, sendData} = useAxios<Project>({
-        method: "post",
-        url: "/project"
-    })
+
+    const [setProjects, projects] = useStore(({setProjects,projects}) => [setProjects, projects])
+    const [modal, toggle] = useStore(({modal,toggleModal}) => [modal,toggleModal])
     const createProject = (data:CreateProjectFormValues) => {
         axios.post<Project>("/project", {assignement: data}).then((res)=>{
             setProjects([...projects, res.data])
         })
         toggle()
-    }
-    const toggle = () => {
-        setModal(!modal)
     }
 
     return <div>

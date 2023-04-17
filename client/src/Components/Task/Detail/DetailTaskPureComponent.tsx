@@ -1,29 +1,58 @@
-import React from "react";
-import { Task } from "../../../shared/model/TaskModel";
+import React, {useState} from "react";
+import {Task, TaskStatusEnum} from "../../../shared/model/TaskModel";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime"
+import {Input} from "reactstrap";
 import axios from "axios";
 
+dayjs.extend(relativeTime)
 
 interface Props {
     task: Task
+    // toggleTask: () => void
 }
 
 export const DetailTaskPureComponent = ({task}:Props)  => {
-    axios.get("http://localhost:5001/tasks")
-    return <div>
-        <div>
-            <p>
-                <span>{task.group ? task.group.groupName : "Personal"}</span>
-                <span>|</span>
-                <span>{task.duration}</span>
-            </p>
-    
-        </div>
-        <div>
-            <input type={"checkbox"} name={"task-checked"} />
-            <h1>{task.title}</h1>
-        </div>
-        <div className="">
-            <p>{task.description}</p>
+    const [currentTask, setCurrentTask] = useState<Task>(task)
+
+    const toggleTask = () => {
+        const updatedTask = {...currentTask,
+            id: task._id,
+            status: currentTask.status === TaskStatusEnum.ACTIVE ?
+                TaskStatusEnum.COMPLETED :
+                TaskStatusEnum.ACTIVE
+        }
+        setCurrentTask(updatedTask)
+        axios<Task>({
+            method: "put",
+            url: `/task`,
+            data: updatedTask
+        })
+
+    }
+    return  <div className="task-card">
+        <p className={"task-info"}>
+            <span>{currentTask.priority} {currentTask.status} </span>
+            <span>{currentTask.group ? currentTask.group.groupName : "Personal"}</span>
+            {currentTask.dueDate && <>
+                <span> | </span>
+                <span>{dayjs(currentTask.dueDate).fromNow()}</span>
+            </>}
+        </p>
+        <br/>
+        <div style={{justifyContent: "space-between", display: "flex"}}>
+            <div style={{width: "20px"}}>
+                <Input type="checkbox"
+                       id={currentTask.title}
+                       checked={currentTask.status === TaskStatusEnum.COMPLETED}
+                       onChange={()=>{
+                           toggleTask()
+                       }}/>
+            </div>
+            <div className={"task-details"}>
+                <label className={"task-title"} htmlFor={currentTask.title}>{currentTask.title}</label><br/>
+                <p className={"task-description"}>{currentTask.description}</p>
+            </div>
         </div>
     </div>
 }

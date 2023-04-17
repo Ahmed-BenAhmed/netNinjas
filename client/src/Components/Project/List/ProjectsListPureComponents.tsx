@@ -2,6 +2,7 @@ import React from "react";
 import {CreateProjectPureComponent} from "../Create/CreateProjectPureComponent";
 import {Project} from "../../../shared/model/ProjectModel";
 import {useStore} from "../../../shared/customHooks/useStore";
+import {DetailProjectPureComponent} from "../Detail/DetailProjectPureComponent";
 
 interface Props {
     projects: Project[]
@@ -14,8 +15,6 @@ export const ProjectsListPureComponents = () => {
     return <div>
         <CreateProjectPureComponent />
         <h2>Projects</h2>
-        {projects?.map(project => <p key={project._id}>
-            {project.assignement?.title}
-        </p>)}
+        {projects?.map(project => <DetailProjectPureComponent project={project} />)}
     </div>
 }
