@@ -1,7 +1,7 @@
 import axios, {AxiosError, AxiosRequestConfig} from "axios"
 import {useEffect, useState} from "react";
 
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = process.env.API_URL || 'https://net-ninjas.onrender.com';
 
 export function useAxios<Type>(axiosParams: AxiosRequestConfig){
     const [data, setData] = useState<Type>()
