@@ -21,7 +21,7 @@ export const CreateGroupModal = ({createGroup, modal, toggle}:Props) => {
             <ModalHeader toggle={toggle}>Add New Project Form</ModalHeader>
             <ModalBody>
 
-                    <input type={"text"} placeholder={"group name"} {...register("groupName")} />
+                <input type={"text"} placeholder={"group name"} {...register("groupName")} />
 
             </ModalBody>
             <ModalFooter>

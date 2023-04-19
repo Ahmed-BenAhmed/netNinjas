@@ -1,17 +1,28 @@
 import React from "react";
-import {DetailTaskPureComponent} from "./DetailTaskPureComponent";
 import {Task} from "../../../shared/model/TaskModel";
-import {useAxios} from "../../../shared/customHooks/UseAxios";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime"
+import {OneLineTaskComponent} from "./OneLineTaskPureComponent";
 
-export const DetailTaskComponent = () => {
-    const {data:task, isLoading, error} = useAxios<Task>({
-        method: "get",
-        url: "/tasks"
-    })
+dayjs.extend(relativeTime)
 
-    if(isLoading) return <p>Loading ...</p>
-    if(task) {
-        return <DetailTaskPureComponent task={task} />
-    }
-    return <> Some Error Happened In fetching data {error ? error : ""}</>
+interface Props {
+    task: Task
+}
+
+export const DetailTaskComponent = ({task}:Props)  => {
+    return  <div className="task-card">
+        <div style={{display: "block", justifyContent: "space-between", flexDirection: "row-reverse"}}>
+        <p className={"task-info"}>
+            {task.project && <span>{task.project.assignement?.title} | </span>}
+            <span>{task.priority} |  {task.status} | </span>
+            <span>{task.group ? task.group.groupName : "Personal"}</span>
+            {task.dueDate && <>
+                <span> | </span>
+                <span>{dayjs(task.dueDate).fromNow()}</span>
+            </>}
+        </p>
+        <OneLineTaskComponent task={task} withDetails={true} />
+    </div>
+    </div>
 }

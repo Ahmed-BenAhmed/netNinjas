@@ -9,10 +9,10 @@ dayjs.extend(relativeTime)
 
 interface Props {
     task: Task
-    // toggleTask: () => void
+    withDetails: boolean
 }
 
-export const DetailTaskPureComponent = ({task}:Props)  => {
+export const OneLineTaskComponent = ({task, withDetails}:Props)  => {
     const [currentTask, setCurrentTask] = useState<Task>(task)
 
     const toggleTask = () => {
@@ -30,17 +30,7 @@ export const DetailTaskPureComponent = ({task}:Props)  => {
         })
 
     }
-    return  <div className="task-card">
-        <p className={"task-info"}>
-            <span>{currentTask.priority} {currentTask.status} </span>
-            <span>{currentTask.group ? currentTask.group.groupName : "Personal"}</span>
-            {currentTask.dueDate && <>
-                <span> | </span>
-                <span>{dayjs(currentTask.dueDate).fromNow()}</span>
-            </>}
-        </p>
-        <br/>
-        <div style={{justifyContent: "space-between", display: "flex"}}>
+    return <div style={{justifyContent: "space-between", display: "flex"}}>
             <div style={{width: "20px"}}>
                 <Input type="checkbox"
                        id={currentTask.title}
@@ -51,8 +41,7 @@ export const DetailTaskPureComponent = ({task}:Props)  => {
             </div>
             <div className={"task-details"}>
                 <label className={"task-title"} htmlFor={currentTask.title}>{currentTask.title}</label><br/>
-                <p className={"task-description"}>{currentTask.description}</p>
+                {withDetails && <p className={"task-description"}>{currentTask.description}</p>}
             </div>
         </div>
-    </div>
 }

@@ -5,7 +5,7 @@ export type CreateProjectFormValues = {
 export type CreateTaskFormValues = {
     title: string;
     description: string;
-    dueDate: Date;
+    dueDate: string;
     date: string;
     time: string;
     project: string;

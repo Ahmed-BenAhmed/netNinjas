@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {
     Button,
     Dropdown,
@@ -19,8 +19,8 @@ interface Props {
     createTask: (data:CreateTaskFormValues) => void,
     modal: boolean,
     toggle: () => void,
-    selectedProject: string | undefined
-    setSelectedProject: (selectedProject: string) => void
+    selectedProject?: string | undefined
+    setSelectedProject?: (selectedProject: string) => void
 }
 
 
@@ -34,7 +34,10 @@ export const CreateTaskModal = ({createTask, modal, toggle, selectedProject, set
         return reset
     },[modal])
 
-    console.log("projects", projects.map((project) => project.assignement))
+    const currentProjectName = useMemo(()=>{
+        return projects.find(project => project._id === selectedProject)?.assignement.title
+    },[selectedProject])
+
     return  <Modal isOpen={modal} toggle={toggle}>
         <form onSubmit={handleSubmit(createTask)}>
             <ModalHeader toggle={toggle}>Add New Project Form</ModalHeader>
@@ -45,16 +48,18 @@ export const CreateTaskModal = ({createTask, modal, toggle, selectedProject, set
                 <TextInput name={"time"} control={control} type={"time"} /> <br />
 
                 <Dropdown toggle={toggleDropDown} isOpen={dropdownOpen}>
-                    <DropdownToggle {...register("project")}>
-                        {selectedProject ? projects.find(project => project._id === selectedProject).assignement.title : "Select Project"}
+                    <DropdownToggle {...register("project")} disabled={!setSelectedProject}>
+                        {selectedProject ? currentProjectName : "Select Project"}
                     </DropdownToggle>
-                    <DropdownMenu style={{height: "200px", overflowY: "scroll"}}>
-                        {projects.map(project => project.assignement ?
-                            <DropdownItem onClick={()=>{
-                                setSelectedProject(project._id)
-                            }}>{project.assignement.title}</DropdownItem>
-                            :<></>)}
-                    </DropdownMenu>
+                    {setSelectedProject &&
+                        <DropdownMenu style={{height: "200px", overflowY: "scroll"}}>
+                            {projects.map(project => (
+                                <DropdownItem disabled={!setSelectedProject}
+                                              onClick={() => setSelectedProject(project._id)}>
+                                    {project.assignement.title}
+                                </DropdownItem>))}
+                        </DropdownMenu>
+                    }
                 </Dropdown>
             </ModalBody>
             <ModalFooter>

@@ -1,5 +1,5 @@
-import { Group } from "./GroupModel";
-import {PriorityEnum} from "./ProjectModel";
+import {Group} from "./GroupModel";
+import {PriorityEnum, Project} from "./ProjectModel";
 
 
 export enum TaskStatusEnum {
@@ -15,14 +15,15 @@ export enum TaskStatusEnum {
 export type Task = {
     title: string,
     description: string,
-    status: TaskStatusEnum,
-    createdAt: Date,
-    doDate: Date,
-    dueDate: Date,
-    priority: PriorityEnum,
-    group: Group,
-    duration: string
-    _id: string
+    status?: TaskStatusEnum,
+    createdAt?: string,
+    doDate?: string,
+    dueDate?: string,
+    priority?: PriorityEnum,
+    group?: Group,
+    duration?: string
+    _id?: string
+    project: Project
 }
 
 

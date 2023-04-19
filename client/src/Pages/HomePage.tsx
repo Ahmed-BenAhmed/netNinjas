@@ -4,7 +4,7 @@ import {useStore} from "../shared/customHooks/useStore";
 import {Task} from "../shared/model/TaskModel";
 import {useAxios} from "../shared/customHooks/UseAxios";
 import {CreateTaskComponent} from "../Components/Task/Create/CreateTaskComponent";
-import {DetailTaskPureComponent} from "../Components/Task/Detail/DetailTaskPureComponent";
+import {DetailTaskComponent} from "../Components/Task/Detail/DetailTaskComponent";
 
 
 export const HomePage = () => {
@@ -17,7 +17,7 @@ export const HomePage = () => {
 
     useEffect(()=>{
         if(tasks){
-            setTasks(tasks,tasks.length)
+            setTasks(tasks)
         }
     },[isLoading])
     if(isLoading){
@@ -31,6 +31,6 @@ export const HomePage = () => {
         <Button onClick={toggle}>
             Add Task
         </Button>
-        {tasks?.map(task => <DetailTaskPureComponent task={task} />)}
+        {tasks?.map(task => <DetailTaskComponent task={task} />)}
     </div>
 }

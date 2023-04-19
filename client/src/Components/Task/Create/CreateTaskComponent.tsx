@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import {useStore} from "../../../shared/customHooks/useStore";
 import {CreateTaskFormValues} from "../../../shared/model/FormTypes";
-import axios from "axios";
-import {Task} from "../../../shared/model/TaskModel";
 import {CreateTaskModal} from "./CreateTaskModal";
 import dayjs from "dayjs";
+import {postTask} from "../taskFunctions";
 
 interface Props {
     modal: boolean
@@ -17,14 +16,13 @@ export const CreateTaskComponent = ({modal}:Props) => {
     const createTask = (data:CreateTaskFormValues) => {
         const task = {
             ...data,
-            dueDate:  dayjs((`${data.date} ${data.time}`)).format(),
-            project: selectedProject ? selectedProject : projects[0]._id
+            dueDate: data.date && data.time ? dayjs((`${data?.date} ${data?.time}`)).format() : dayjs().format(),
+        }
+        if(selectedProject){
+            task.project =  selectedProject
         }
         console.log("task to craate", task)
-        axios.post<Task>("/task", task).then((res)=>{
-            console.log("task created", res.data)
-            setTasks([...tasks, res.data], tasks.length + 1)
-        })
+        postTask(task, tasks, setTasks)
         toggle()
     }
     return <CreateTaskModal createTask={createTask} modal={modal} toggle={toggle}

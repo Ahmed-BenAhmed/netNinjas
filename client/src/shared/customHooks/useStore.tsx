@@ -9,7 +9,7 @@ interface NetNinjaState {
     projects: Project[]
     setProjects: (projects: Project[]) => void
     tasks: Task[]
-    setTasks: (tasks: Task[],taskCounter: number) => void
+    setTasks: (tasks: Task[]) => void
     groups: Group[]
     setGroups: (group: Group[]) => void
     tasksCounter: number
@@ -23,11 +23,10 @@ export const useStore = create<NetNinjaState>()((set) => ({
     setProjects: (projects) => set(() => ({ projects: projects})),
     tasks: [],
     tasksCounter: 0,
-    setTasks: (tasks,taskCounter) => {
+    setTasks: (tasks) => {
         return set(()=> {
             return {
-                tasks: tasks,
-                tasksCounter: taskCounter
+                tasks: tasks
             }
         })
     },
