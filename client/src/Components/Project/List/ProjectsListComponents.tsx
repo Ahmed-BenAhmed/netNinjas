@@ -6,7 +6,7 @@ import {useStore} from "../../../shared/customHooks/useStore";
 
 
 export const ProjectsListComponents = () => {
-    const setProjects = useStore((state)=> state.setProjects)
+    const [projects, setProjects] = useStore(({projects, setProjects})=> [projects, setProjects])
     const {data, isLoading, error} = useAxios<Project[]>({
         method: "get",
         url: "/projects"
@@ -24,5 +24,5 @@ export const ProjectsListComponents = () => {
         return <h1>{error.message}</h1>
     }
 
-    return <ProjectsListPureComponents />
+    return <ProjectsListPureComponents projects={projects}/>
 }

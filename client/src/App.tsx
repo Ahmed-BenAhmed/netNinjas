@@ -1,5 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css"
 import {UserLayout} from "./Components/Layout/UserLayout";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {MainLayout} from "./Components/Layout/MainLayout";
