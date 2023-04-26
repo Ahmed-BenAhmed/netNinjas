@@ -10,6 +10,14 @@ import {GroupsPage} from "./Pages/GroupsPage";
 import {WorkspacePage} from "./Pages/WorkspacePage";
 import {DetailProjectComponent} from "./Components/Project/Detail/DetailProjectComponent";
 import {DetailGroupComponent} from "./Components/Group/Detail/DetailGroupComponent";
+import {LandingPage} from "./Pages/LandingPage";
+import {config} from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
+config.autoAddCss = false
+
+
+
 
 const router = createBrowserRouter([
     {
@@ -18,7 +26,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <div>hello world</div>
+                element: <LandingPage />
             }
         ]
     },

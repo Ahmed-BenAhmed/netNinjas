@@ -7,15 +7,16 @@ import {useAxios} from "../shared/customHooks/UseAxios";
 
 export const GroupsPage = () => {
 
-    const [modal,setGroups] = useStore(({modal,setGroups}) => [modal,setGroups])
-    const {data:groups, isLoading, error} = useAxios<Group[]>({
+    const modal = useStore((state) => state.modal)
+    const [groups, setGroups]  = useStore((state) => [state.groups, state.setGroups])
+    const {data, isLoading, error} = useAxios<Group[]>({
         method: "get",
         url: "/groups"
     })
 
     useEffect(()=>{
-        if(groups){
-            setGroups(groups)
+        if(data){
+            setGroups(data)
         }
     },[isLoading])
     if(isLoading){

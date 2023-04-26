@@ -13,6 +13,9 @@ interface NetNinjaState {
     groups: Group[]
     setGroups: (group: Group[]) => void
     tasksCounter: number
+    deletT: (taskId: string) => void
+
+    updateTask: (task: Task) => void
 }
 
 
@@ -20,16 +23,16 @@ export const useStore = create<NetNinjaState>()((set) => ({
     modal: false,
     toggleModal: () => set((state)=> ({modal: !state.modal})),
     projects: [],
-    setProjects: (projects) => set(() => ({ projects: projects})),
+    setProjects: (projects1) => set(() => ({ projects: projects1})),
     tasks: [],
     tasksCounter: 0,
-    setTasks: (tasks) => {
-        return set(()=> {
-            return {
-                tasks: tasks
-            }
-        })
-    },
+    setTasks: (tasks) => set((state)=>  ({tasks: tasks})),
     groups: [],
-    setGroups: (groups) => set(()=> ({groups: groups}))
+    setGroups: (groups1) => set(()=> ({groups: groups1})),
+    updateTask: (task) => set((state)=> {
+        return {
+            tasks: [...state.tasks, task]
+        }
+    }),
+    deletT: (taskId) => set((state)=> ({tasks: state.tasks}))
 }))

@@ -5,12 +5,13 @@ import {CreateProjectModal} from "./CreateProjectModal";
 import {useStore} from "../../../shared/customHooks/useStore";
 import {Project} from "../../../shared/model/ProjectModel";
 import axios from "axios";
+import {shallow} from "zustand/shallow";
 
 
 export const CreateProjectPureComponent = () => {
 
-    const [setProjects, projects] = useStore(({setProjects,projects}) => [setProjects, projects])
-    const [modal, toggle] = useStore(({modal,toggleModal}) => [modal,toggleModal])
+    const [setProjects, projects] = useStore((state) => [state.setProjects, state.projects],shallow)
+    const [modal, toggle] = useStore((state) => [state.modal,state.toggleModal])
     const createProject = (data:CreateProjectFormValues) => {
         axios.post<Project>("/project", {assignement: data}).then((res)=>{
             setProjects([...projects, res.data])

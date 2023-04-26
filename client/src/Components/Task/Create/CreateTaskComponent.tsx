@@ -4,12 +4,13 @@ import {CreateTaskFormValues} from "../../../shared/model/FormTypes";
 import {CreateTaskModal} from "./CreateTaskModal";
 import dayjs from "dayjs";
 import {postTask} from "../taskFunctions";
+import {shallow} from "zustand/shallow";
 
 interface Props {
     modal: boolean
 }
 export const CreateTaskComponent = ({modal}:Props) => {
-    const [tasks, setTasks] = useStore(({tasks,setTasks}) => [tasks, setTasks])
+    const [tasks, setTasks] = useStore((state) => [state.tasks, state.setTasks],shallow)
     const [toggle] = useStore(({toggleModal}) => [toggleModal])
     const projects = useStore((state)=> state.projects)
     const [selectedProject, setSelectedProject] = useState<string|undefined>(undefined)
