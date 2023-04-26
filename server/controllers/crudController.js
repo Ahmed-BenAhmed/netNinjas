@@ -3,7 +3,6 @@ const createOne =  (model) => async (req, res) => {
         console.log("to be created",req.body)
         const newModel = await model.create(req.body);
         await newModel.save();
-        console.log('model created');
         return res.status(201).json(newModel);
        
     }
@@ -42,7 +41,7 @@ const getOne = (model,populate) => async (req, res) => {
 
 const updateOne = (model,populate) => async (req, res) => {
     try {
-        const newModel =await model.findByIdAndUpdate(req.body.id,req.body).populate(populate)
+        const newModel = await model.findByIdAndUpdate(req.body._id,req.body).populate(populate)
         await newModel.save();
         console.log('model updated');
         return res.status(201).json(newModel);

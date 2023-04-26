@@ -1,19 +1,21 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Project} from "../../../shared/model/ProjectModel";
 import {OneLineTaskComponent} from "../../Task/Detail/OneLineTaskPureComponent";
 import dayjs from "dayjs";
 import {Button} from "reactstrap";
 import {CreateTaskModal} from "../../Task/Create/CreateTaskModal";
 import {CreateTaskFormValues} from "../../../shared/model/FormTypes";
-import {postTask} from "../../Task/taskFunctions";
 import {useStore} from "../../../shared/customHooks/useStore";
+import {shallow} from "zustand/shallow";
+import {Task} from "../../../shared/model/TaskModel";
+import axios from "axios";
 
 interface Props {
     project: Project
 }
 export const DetailProjectPureComponent = ({project}:Props) => {
     const [modal, setModal] = useState(false)
-    const [tasks, setTasks] = useStore(({tasks,setTasks}) => [tasks, setTasks])
+    const [tasks, setTasks] = useStore((state) => [state.tasks, state.setTasks],shallow)
     const toggle = () => setModal(!modal)
     const createTask = (data:CreateTaskFormValues) => {
         const task = {
@@ -21,10 +23,23 @@ export const DetailProjectPureComponent = ({project}:Props) => {
             dueDate: data.date && data.time ? dayjs((`${data?.date} ${data?.time}`)).format() : dayjs().format(),
             project: project._id
         }
-        postTask(task, tasks, setTasks)
+        axios.post<Task>("/task", task).then((res)=>{
+            console.log("task created", res.data)
+            setTasks([...tasks, {...res.data, project: {...res.data.project,_id: project._id}}])
+        })
         toggle()
     }
 
+    useEffect(()=>{
+        if(tasks.length === 0){
+            axios<Task[]>({
+                method: "get",
+                url: "/tasks"
+            }).then((res)=>{
+                setTasks(res.data)
+            })
+        }
+    },[])
     return  <div className="task-card">
         <CreateTaskModal createTask={createTask} modal={modal} toggle={toggle} selectedProject={project._id}/>
         <div>
@@ -42,7 +57,7 @@ export const DetailProjectPureComponent = ({project}:Props) => {
             <br/>
             <div>
                 <h6>Tasks <Button onClick={toggle}>+</Button></h6>
-                {project.tasks.map(task => (<div>
+                {tasks.filter(task => task.project?._id === project._id).map(task => (<div>
                     <OneLineTaskComponent task={task} withDetails={false} />
                 </div>))}
             </div>

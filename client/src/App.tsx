@@ -10,6 +10,8 @@ import {GroupsPage} from "./Pages/GroupsPage";
 import {WorkspacePage} from "./Pages/WorkspacePage";
 import {DetailProjectComponent} from "./Components/Project/Detail/DetailProjectComponent";
 import {DetailGroupComponent} from "./Components/Group/Detail/DetailGroupComponent";
+import {LandingPage} from "./Pages/LandingPage";
+
 
 const router = createBrowserRouter([
     {
@@ -18,7 +20,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <div>hello world</div>
+                element: <LandingPage />
             }
         ]
     },

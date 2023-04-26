@@ -3,10 +3,11 @@ import {useAxios} from "../../../shared/customHooks/UseAxios";
 import {Project} from "../../../shared/model/ProjectModel";
 import {ProjectsListPureComponents} from "./ProjectsListPureComponents";
 import {useStore} from "../../../shared/customHooks/useStore";
+import {shallow} from "zustand/shallow";
 
 
 export const ProjectsListComponents = () => {
-    const [projects, setProjects] = useStore(({projects, setProjects})=> [projects, setProjects])
+    const [projects, setProjects] = useStore((state)=> [state.projects, state.setProjects],shallow)
     const {data, isLoading, error} = useAxios<Project[]>({
         method: "get",
         url: "/projects"

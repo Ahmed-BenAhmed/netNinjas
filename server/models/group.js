@@ -1,8 +1,21 @@
 const mongoose = require('mongoose');
+const {mongo} = require("mongoose");
 const Schema = mongoose.Schema;
 
 const groupSchema = new Schema ({
-    groupName: String
+    groupName: {
+        type: String,
+        required: true
+    },
+    members: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "user"
+    },
+    admin: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
+    }
 } , {timestamps: true});
 
 const group = mongoose.model('group', groupSchema);

@@ -1,8 +1,9 @@
-import { Group } from "./GroupModel";
+import {Group} from "./GroupModel";
 import {Project} from "./ProjectModel";
 
 
 export type User = {
+    _id: string,
     name: string,
     userName: string,
     projects: [Project],
