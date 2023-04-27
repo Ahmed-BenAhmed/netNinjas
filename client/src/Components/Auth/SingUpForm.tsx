@@ -1,18 +1,18 @@
-import React from "react";
-import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState} from "react";
 import axios from 'axios';
-import { useNavigate } from "@reach/router";
+import {useNavigate} from "@reach/router";
+import {SignUpFormValues} from "../../shared/model/FormTypes";
+
 
 export const SingUpForm = () => {
-    const[data,setData]= useState({
+    const [data,setData]= useState<SignUpFormValues>({
         name : "",
         email:"",
         password: ""
     });
-    const[error, setError]= useState('');
+    const [error, setError]= useState('');
     const navigate= useNavigate();
-    const handleChange = ({currentTarget: input }) => {
+    const handleChange = ({currentTarget: input}) => {
         setData({...data,[input.name]: input.value});
     };
     const handleSubmit = async(e) => {
@@ -20,7 +20,7 @@ export const SingUpForm = () => {
         try{
             const url=""
             const {data: res} = await axios.post(url,data);
-            navigate("/login");
+            await navigate("/login");
             console.log(res.message);
         }catch(error){
             if(error.response && error.response.status >=400 && error.response.status <= 500 ){
