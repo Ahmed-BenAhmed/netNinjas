@@ -32,7 +32,9 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/auth/login",
-                element: <div>this is Log In Page</div>
+                element: <LocationProvider>
+                    <LogInForm />
+                </LocationProvider>
             },
             {
                 path: "/auth/sign-up",

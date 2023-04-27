@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from 'axios';
 import {useNavigate} from "@reach/router";
 import {SignUpFormValues} from "../../shared/model/FormTypes";
+import { Link } from "react-router-dom";
 
 
 export const SingUpForm = () => {
@@ -18,9 +19,9 @@ export const SingUpForm = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
-            const url=""
+            const url="signup"
             const {data: res} = await axios.post(url,data);
-            await navigate("/login");
+            await navigate("/auth/login");
             console.log(res.message);
         }catch(error){
             if(error.response && error.response.status >=400 && error.response.status <= 500 ){
@@ -64,6 +65,11 @@ export const SingUpForm = () => {
                <button type="submit" className="S_button">
                 Sign Up
                </button>
+               <Link to="/auth/login">
+                <button>
+                    Sign in
+                </button>
+               </Link>
            </form>   
         </div>
     )
