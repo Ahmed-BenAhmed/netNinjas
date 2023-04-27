@@ -5,4 +5,4 @@ const userController = crudController(User);
 
 userController.createOne = () => {};
 
-module.exports = crudController(User)
+module.exports = crudController(User,"")

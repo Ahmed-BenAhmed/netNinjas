@@ -1,9 +1,8 @@
 import React, {useState} from "react";
-import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem} from "reactstrap";
+import {Button, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem} from "reactstrap";
 import {NetNinjaLink} from "../NetNinjaLink";
 
-
-export const NetNinjaNavbar = () => {
+export const NonUserNavbar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const toggle = () => setIsOpen(!isOpen);
@@ -17,18 +16,17 @@ export const NetNinjaNavbar = () => {
                         <NetNinjaLink to="/app/">Home</NetNinjaLink>
                     </NavItem>
                     <NavItem>
-                        <NetNinjaLink to="/app/projects/list">
-                            Project
+                        <NetNinjaLink to="/auth/login">
+                            <Button>
+                                Log In
+                            </Button>
                         </NetNinjaLink>
                     </NavItem>
                     <NavItem>
-                        <NetNinjaLink to="/app/groups/list">
-                            Groups
-                        </NetNinjaLink>
-                    </NavItem>
-                    <NavItem>
-                        <NetNinjaLink to="/app/workspace">
-                            Workspace
+                        <NetNinjaLink to="/auth/sign-up">
+                            <Button>
+                                Sign Up
+                            </Button>
                         </NetNinjaLink>
                     </NavItem>
                 </Nav>

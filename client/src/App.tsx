@@ -13,6 +13,7 @@ import {DetailGroupComponent} from "./Components/Group/Detail/DetailGroupCompone
 import {AuthLayout} from "./Components/Layout/AuthLayout";
 import {SingUpForm} from "./Components/Auth/SingUpForm";
 import {LocationProvider} from "@reach/router";
+import {LandingPage} from "./Pages/LandingPage";
 
 const router = createBrowserRouter([
     {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <div>hello world</div>
+                element: <LandingPage />
             }
         ]
     },
