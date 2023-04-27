@@ -14,3 +14,9 @@ export type CreateTaskFormValues = {
 export type CreateGroupFormValues = {
     groupName: string;
 };
+
+export type SignUpFormValues = {
+    name: string,
+    email: string,
+    password: string
+};

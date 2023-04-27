@@ -10,8 +10,10 @@ import {GroupsPage} from "./Pages/GroupsPage";
 import {WorkspacePage} from "./Pages/WorkspacePage";
 import {DetailProjectComponent} from "./Components/Project/Detail/DetailProjectComponent";
 import {DetailGroupComponent} from "./Components/Group/Detail/DetailGroupComponent";
+import {AuthLayout} from "./Components/Layout/AuthLayout";
+import {SingUpForm} from "./Components/Auth/SingUpForm";
+import {LocationProvider} from "@reach/router";
 import {LandingPage} from "./Pages/LandingPage";
-
 
 const router = createBrowserRouter([
     {
@@ -21,6 +23,22 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <LandingPage />
+            }
+        ]
+    },
+    {
+        path: "/auth",
+        element: <AuthLayout />,
+        children: [
+            {
+                path: "/auth/login",
+                element: <div>this is Log In Page</div>
+            },
+            {
+                path: "/auth/sign-up",
+                element: <LocationProvider>
+                    <SingUpForm />
+                </LocationProvider>
             }
         ]
     },
