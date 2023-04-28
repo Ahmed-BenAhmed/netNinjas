@@ -6,20 +6,25 @@ import {Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
 
+type errorType = {
+    email: string
+    password: string
+}
+
 export const LogInForm = () => {
     const {register, handleSubmit} = useForm<LogInFormValues>();
 
-    const [errors, setErrors] = useState(undefined)
+    const [errors, setErrors] = useState<errorType>()
 
     const navigate= useNavigate();
     const login = async (data:LogInFormValues) => {
         const url="/login"
         axios.post<string>(url,data).then((res)=>{
             localStorage.setItem("token",res.data)
+            navigate("/app");
         }).catch((err)=>{
-            setErrors(err)
+            setErrors(err.response.data.errors)
         })
-        navigate("/app");
     }
     return (
         <div className="LogInForm_container">
@@ -31,15 +36,16 @@ export const LogInForm = () => {
                {...register("email")}
                required
                className="input"
-               /> 
-                <input
-               type="password"
-               placeholder="Password" 
-               {...register("password")}
-               required
-               className="input"
                />
-               {errors && <div className='errorMessage'>{errors}</div>}
+                {errors?.email && <div className='errorMessage'>{errors?.email}</div>}
+                <input
+                   type="password"
+                   placeholder="Password"
+                   {...register("password")}
+                   required
+                   className="input"
+               />
+               {errors?.password && <div className='errorMessage'>{errors?.password}</div>}
                <button type="submit" className="S_button">
                 Sign in
                </button>
