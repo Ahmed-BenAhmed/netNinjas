@@ -19,8 +19,7 @@ export const SingUpForm = () => {
         }).catch((err)=>{
             setErrors(err)
         })
-        navigate("/auth/login");
-
+        window.location = "/auth/login"
     }
     return (
         <div className="SignUpForm_container">
