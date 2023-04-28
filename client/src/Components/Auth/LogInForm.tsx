@@ -1,60 +1,41 @@
 import React, {useState} from "react";
 import axios from 'axios';
+import {useNavigate} from "@reach/router";
 import {LogInFormValues} from "../../shared/model/FormTypes";
 import {Link} from "react-router-dom";
-import {useNavigate} from "@reach/router";
+import {useForm} from "react-hook-form";
 
 
 export const LogInForm = () => {
-    const [data,setData]= useState<LogInFormValues>({  
-        email:"",
-        password: ""
-    });
-    const [error, setError]= useState('');
-    const navigate= useNavigate();
+    const {register, handleSubmit} = useForm<LogInFormValues>();
 
-    const handleChange = ({currentTarget: input}) => {
-        setData({...data,[input.name]: input.value});
-    };
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-        try{
-            const url="/login"
-            const {data: res} = await axios.post(url,data);
-            console.log("token ", res)
-            localStorage.setItem("token",res);
-            window.location = "/app"
-            console.log(res.message);
-        }catch(error){
-            if(error.response && error.response.status >=400 && error.response.status <= 500 ){
-                setError(error.response.data.message)
-            }
-        }
-        
+    const [errors, setErrors] = useState(undefined)
+
+    const navigate= useNavigate();
+    const login = async (data:LogInFormValues) => {
+        const url="/login"
+        axios.post<string>(url,data).then((res)=>{
+            localStorage.setItem("token",res.data)
+        }).catch((err)=>{
+            setErrors(err)
+        })
+        navigate("/app");
     }
     return (
         <div className="LogInForm_container">
-            <form className= "form_container" onSubmit={handleSubmit}>
+            <form className= "form_container" onSubmit={handleSubmit(login)}>
               <h1>Welcome back</h1>
                  <input
                type="text"
                placeholder="Email" 
-               name="email"
-               onChange={handleChange}
-               value={data.email}
-               required
                className="input"
                /> 
                 <input
-               type="text"
+               type="password"
                placeholder="Password" 
-               name="password"
-               onChange={handleChange}
-               value={data.password}
-               required
                className="input"
                />
-               {error && <div className='errorMessage'>{error}</div>}
+               {errors && <div className='errorMessage'>{errors}</div>}
                <button type="submit" className="S_button">
                 Sign in
                </button>
