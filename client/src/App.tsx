@@ -14,6 +14,7 @@ import {AuthLayout} from "./Components/Layout/AuthLayout";
 import {SingUpForm} from "./Components/Auth/SingUpForm";
 import {LocationProvider} from "@reach/router";
 import {LandingPage} from "./Pages/LandingPage";
+import {LogInForm} from "./Components/Auth/LogInForm";
 
 const router = createBrowserRouter([
     {
@@ -32,13 +33,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/auth/login",
-                element: <div>this is Log In Page</div>
+                element: <LogInForm />
             },
             {
                 path: "/auth/sign-up",
-                element: <LocationProvider>
-                    <SingUpForm />
-                </LocationProvider>
+                element: <SingUpForm />
             }
         ]
     },
@@ -85,7 +84,9 @@ const router = createBrowserRouter([
     }
 ])
 const App = () => {
-    return <RouterProvider router={router} />
+    return <LocationProvider>
+        <RouterProvider router={router} />
+    </LocationProvider>
 }
 
 export default App;

@@ -2,68 +2,59 @@ import React, {useState} from "react";
 import axios from 'axios';
 import {useNavigate} from "@reach/router";
 import {SignUpFormValues} from "../../shared/model/FormTypes";
+import {Link} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 
 export const SingUpForm = () => {
-    const [data,setData]= useState<SignUpFormValues>({
-        name : "",
-        email:"",
-        password: ""
-    });
-    const [error, setError]= useState('');
+    const {register, handleSubmit} = useForm<SignUpFormValues>();
+
+    const [errors, setErrors] = useState(undefined)
+
     const navigate= useNavigate();
-    const handleChange = ({currentTarget: input}) => {
-        setData({...data,[input.name]: input.value});
-    };
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-        try{
-            const url=""
-            const {data: res} = await axios.post(url,data);
-            await navigate("/login");
-            console.log(res.message);
-        }catch(error){
-            if(error.response && error.response.status >=400 && error.response.status <= 500 ){
-                setError(error.response.data.message)
-            }
-        }
-        
+    const signUp = async (data:SignUpFormValues) => {
+        const url="/signup"
+        axios.post<string>(url,data).then((res)=>{
+            localStorage.setItem("token",res.data)
+        }).catch((err)=>{
+            setErrors(err)
+        })
+        window.location = "/auth/login"
     }
     return (
         <div className="SignUpForm_container">
-            <form className= "form_container" onSubmit={handleSubmit}>
+            <form className= "form_container" onSubmit={handleSubmit(signUp)}>
               <h1>Create Account</h1>
               <input
                type="text"
-               placeholder="Name" 
-               name="name"
-               onChange={handleChange}
-               value={data.name}
+               placeholder="Name"
+               {...register("name")}
                required
                className="input"
                />
                  <input
                type="text"
-               placeholder="Email" 
-               name="email"
-               onChange={handleChange}
-               value={data.email}
+               placeholder="Email"
+               {...register("email")}
                required
                className="input"
                /> 
                 <input
-               type="text"
-               placeholder="Password" 
-               name="password"
-               onChange={handleChange}
-               value={data.password}
+               type="password"
+               placeholder="Password"
+               {...register("password")}
                required
                className="input"
                />
-               {error && <div className='errorMessage'>{error}</div>}
+               {errors && <div className='errorMessage'>{errors}</div>}
                <button type="submit" className="S_button">
                 Sign Up
                </button>
+               <Link to="/auth/login">
+                <button>
+                    Sign in
+                </button>
+               </Link>
            </form>   
         </div>
     )
