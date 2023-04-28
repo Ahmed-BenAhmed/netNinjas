@@ -28,11 +28,15 @@ export const LogInForm = () => {
                  <input
                type="text"
                placeholder="Email" 
+               {...register("email")}
+               required
                className="input"
                /> 
                 <input
                type="password"
                placeholder="Password" 
+               {...register("password")}
+               required
                className="input"
                />
                {errors && <div className='errorMessage'>{errors}</div>}
