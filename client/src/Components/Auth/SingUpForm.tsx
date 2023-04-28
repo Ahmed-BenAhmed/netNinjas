@@ -17,7 +17,7 @@ export const SingUpForm = () => {
         axios.post<string>(url,data).then((res)=>{
             localStorage.setItem("token",res.data)
         }).catch((err)=>{
-            setErrors(err)
+            setErrors(err.response.data.errors)
         })
         navigate("/auth/login")
     }
@@ -39,6 +39,7 @@ export const SingUpForm = () => {
                required
                className="input"
                /> 
+                {errors?.email && <div className='errorMessage'>{errors?.email}</div>}
                 <input
                type="password"
                placeholder="Password"
@@ -46,7 +47,7 @@ export const SingUpForm = () => {
                required
                className="input"
                />
-               {errors && <div className='errorMessage'>{errors}</div>}
+               {errors?.password && <div className='errorMessage'>{errors?.password}</div>}
                <button type="submit" className="S_button">
                 Sign Up
                </button>
