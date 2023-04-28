@@ -19,7 +19,7 @@ export const SingUpForm = () => {
         }).catch((err)=>{
             setErrors(err)
         })
-        await navigate("/auth/login");
+        navigate("/auth/login");
 
     }
     return (

@@ -23,7 +23,7 @@ export const LogInForm = () => {
             const {data: res} = await axios.post(url,data);
             console.log("token ", res)
             localStorage.setItem("token",res);
-            await navigate("/app")
+            navigate("/app")
             console.log(res.message);
         }catch(error){
             if(error.response && error.response.status >=400 && error.response.status <= 500 ){
