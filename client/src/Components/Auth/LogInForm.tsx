@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import axios from 'axios';
 import {LogInFormValues} from "../../shared/model/FormTypes";
+import {Link} from "react-router-dom";
+import {useNavigate} from "@reach/router";
 
 
 export const LogInForm = () => {
@@ -9,6 +11,8 @@ export const LogInForm = () => {
         password: ""
     });
     const [error, setError]= useState('');
+    const navigate= useNavigate();
+
     const handleChange = ({currentTarget: input}) => {
         setData({...data,[input.name]: input.value});
     };
@@ -17,8 +21,9 @@ export const LogInForm = () => {
         try{
             const url="/login"
             const {data: res} = await axios.post(url,data);
-            localStorage.setItem("token",res.data);
-            window.location ="/"
+            console.log("token ", res)
+            localStorage.setItem("token",res);
+            await navigate("/app")
             console.log(res.message);
         }catch(error){
             if(error.response && error.response.status >=400 && error.response.status <= 500 ){
