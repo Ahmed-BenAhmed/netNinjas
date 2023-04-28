@@ -12,7 +12,6 @@ import {DetailProjectComponent} from "./Components/Project/Detail/DetailProjectC
 import {DetailGroupComponent} from "./Components/Group/Detail/DetailGroupComponent";
 import {AuthLayout} from "./Components/Layout/AuthLayout";
 import {SingUpForm} from "./Components/Auth/SingUpForm";
-import {LocationProvider} from "@reach/router";
 import {LandingPage} from "./Pages/LandingPage";
 import {LogInForm} from "./Components/Auth/LogInForm";
 
@@ -84,9 +83,7 @@ const router = createBrowserRouter([
     }
 ])
 const App = () => {
-    return <LocationProvider>
-        <RouterProvider router={router} />
-    </LocationProvider>
+    return <RouterProvider router={router} />
 }
 
 export default App;
