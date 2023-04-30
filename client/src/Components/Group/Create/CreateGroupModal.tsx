@@ -69,24 +69,24 @@ export const CreateGroupModal = ({modal, toggle}:Props) => {
                 {users &&
                     <Row>
                         <Col md={6}>
-                        <Dropdown toggle={toggleDropDown} isOpen={dropdownOpen}>
-                            <DropdownToggle>
-                                {selectedUser ? selectedUser.name : "Select User"}
-                            </DropdownToggle>
-                            <DropdownMenu style={{height: "200px", overflowY: "scroll"}}>
-                                {users.map(user => (
-                                    <DropdownItem
-                                                  onClick={() => setSelectedUser(user)}>
-                                        {user.name}
-                                    </DropdownItem>))}
-                            </DropdownMenu>
-                </Dropdown>
-                <Button disabled={!selectedUser} onClick={()=>{
-                    const isSelected = groupMembers.find((user) => user._id === selectedUser?._id)
-                    if(selectedUser && !isSelected) {
-                        setGroupMembers([...groupMembers, selectedUser])
-                    }
-                }}>Add User To Group</Button>
+                            <Dropdown toggle={toggleDropDown} isOpen={dropdownOpen}>
+                                <DropdownToggle>
+                                    {selectedUser ? selectedUser.name : "Select User"}
+                                </DropdownToggle>
+                                <DropdownMenu style={{height: "200px", overflowY: "scroll"}}>
+                                    {users.map(user => (
+                                        <DropdownItem
+                                                      onClick={() => setSelectedUser(user)}>
+                                            {user.name}
+                                        </DropdownItem>))}
+                                </DropdownMenu>
+                            </Dropdown>
+                            <Button disabled={!selectedUser} onClick={()=>{
+                                const isSelected = groupMembers.find((user) => user._id === selectedUser?._id)
+                                if(selectedUser && !isSelected) {
+                                    setGroupMembers([...groupMembers, selectedUser])
+                                }
+                            }}>Add User To Group</Button>
                         </Col>
                         <Col md={6}>
                             <p>Added Users</p>

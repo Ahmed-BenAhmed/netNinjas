@@ -1,5 +1,14 @@
 export type CreateProjectFormValues = {
     title: string;
+    description: string;
+    dueDate: string;
+    date: string;
+    time: string;
+};
+
+export type CreateProjectForm = {
+    assignement: CreateProjectFormValues,
+    group?: string
 };
 
 export type CreateTaskFormValues = {

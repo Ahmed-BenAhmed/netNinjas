@@ -1,10 +1,9 @@
-import {User} from "./UserModel";
-import {Project} from "./ProjectModel";
-
-
 export type Group = {
     groupName: string,
-    bio: string,
-    groupLeader: User,
-    projects: [Project]
+    bio?: string,
+    admin: string,
+    members: string[],
+    projects?: string[],
+    createdAt: string,
+    _id: string
 }

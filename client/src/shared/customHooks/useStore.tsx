@@ -2,10 +2,13 @@ import {create} from "zustand";
 import {Project} from "../model/ProjectModel";
 import {Task} from "../model/TaskModel";
 import {Group} from "../model/GroupModel";
+import {User} from "../model/UserModel";
 
 interface NetNinjaState {
     modal: boolean
     toggleModal: () => void
+    users: User[]
+    setUsers: (users: User[]) => void
     projects: Project[]
     setProjects: (projects: Project[]) => void
     tasks: Task[]
@@ -14,7 +17,6 @@ interface NetNinjaState {
     setGroups: (group: Group[]) => void
     tasksCounter: number
     deletT: (taskId: string) => void
-
     updateTask: (task: Task) => void
 }
 
@@ -22,6 +24,8 @@ interface NetNinjaState {
 export const useStore = create<NetNinjaState>()((set) => ({
     modal: false,
     toggleModal: () => set((state)=> ({modal: !state.modal})),
+    users: [],
+    setUsers: (users) => set(() => ({users: users})),
     projects: [],
     setProjects: (projects1) => set(() => ({ projects: projects1})),
     tasks: [],

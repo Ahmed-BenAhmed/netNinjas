@@ -28,7 +28,7 @@ const getMany = (model,populate) => async (req, res) => {
 
 const getOne = (model,populate) => async (req, res) => {
     try {
-        const newModel = await model.findById(req.body.id).populate(populate);
+        const newModel = await model.findById(req.params.id).populate(populate);
         console.log(newModel);
         return res.status(201).json(newModel);
        

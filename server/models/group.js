@@ -7,15 +7,20 @@ const groupSchema = new Schema ({
         type: String,
         required: true
     },
-    members: {
-        type: [mongoose.Schema.Types.ObjectId],
+    members: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: "user"
-    },
+    }],
     admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
         required: true
-    }
+    },
+    bio: String,
+    projects: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "project",
+    }]
 } , {timestamps: true});
 
 const group = mongoose.model('group', groupSchema);

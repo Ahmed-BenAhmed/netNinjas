@@ -3,6 +3,7 @@ import {Group} from "../shared/model/GroupModel";
 import {useStore} from "../shared/customHooks/useStore";
 import {CreateGroupComponent} from "../Components/Group/Create/CreateGroupComponent";
 import {useAxios} from "../shared/customHooks/UseAxios";
+import {GroupCardComponent} from "../Components/Group/Detail/GroupCardComponent";
 
 
 export const GroupsPage = () => {
@@ -30,9 +31,6 @@ export const GroupsPage = () => {
         <h1>Hello Programmer, I hope you finish your task in the minimum time possible</h1>
         <h2>Groups </h2>
         <CreateGroupComponent modal={modal} />
-
-        <ul>
-            {groups?.map((group)=> <li>{group.groupName}</li>)}
-        </ul>
+        {groups?.map((group)=> <GroupCardComponent group={group} /> )}
     </div>
 }

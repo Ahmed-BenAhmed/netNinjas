@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Button} from "reactstrap";
 import {useStore} from "../shared/customHooks/useStore";
-import {Task} from "../shared/model/TaskModel";
+import {Task, TaskStatusEnum} from "../shared/model/TaskModel";
 import {useAxios} from "../shared/customHooks/UseAxios";
 import {CreateTaskComponent} from "../Components/Task/Create/CreateTaskComponent";
 import {DetailTaskComponent} from "../Components/Task/Detail/DetailTaskComponent";
@@ -31,6 +31,6 @@ export const HomePage = () => {
         <Button onClick={toggle}>
             Add Task
         </Button>
-        {tasks?.map(task => <DetailTaskComponent task={task} />)}
+        {tasks?.map(task =>  task.status !== TaskStatusEnum.DELETED && <DetailTaskComponent task={task} />)}
     </div>
 }

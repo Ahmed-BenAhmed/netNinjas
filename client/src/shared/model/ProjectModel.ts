@@ -20,5 +20,6 @@ export type Project = {
     assignement: Task
     completedTasks: number
     numberOfTask: number
+    group: string
     tasks: Task[]
 }

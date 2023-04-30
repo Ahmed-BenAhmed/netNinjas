@@ -19,6 +19,11 @@ const projectSchema = new Schema ({
         default: 0
     },
 
+    group: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "group"
+    },
+
     tasks: [{type: mongoose.Schema.Types.ObjectId, ref: 'task'}]
 })
 

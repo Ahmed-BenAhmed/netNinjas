@@ -40,7 +40,7 @@ export const CreateTaskModal = ({createTask, modal, toggle, selectedProject, set
 
     return  <Modal isOpen={modal} toggle={toggle}>
         <form onSubmit={handleSubmit(createTask)}>
-            <ModalHeader toggle={toggle}>Add New Project Form</ModalHeader>
+            <ModalHeader toggle={toggle}>Add New Task Form</ModalHeader>
             <ModalBody>
                 <TextInput name={"title"} control={control} placeholder={"task title"} /><br />
                 <TextInput name={"description"} control={control} placeholder={"task description"} /><br />
